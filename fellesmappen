@@ -1,0 +1,212 @@
+// filmarkivADT
+
+package no.hvl.dat102;
+
+import no.hvl.dat102.film;
+import no.hvl.dat102.adt.FilmarkivADT;
+import no.hvl.dat102.Sjanger;
+
+public class Filmarkiv implements FilmarkivADT {
+	
+	private film[] tab;
+	private int antallFilmer;
+	
+	public Filmarkiv (int antall) {
+		tab = new film[antall];
+		antallFilmer = 0;
+	}
+	
+	@Override
+	public void visFilm(int nr) {
+		for(int i = 0; i<antallFilmer; i++) {
+			if(tab[i].getFilmnr()== nr) {
+				System.out.println(tab[i].toString());
+			}
+		}
+		System.out.println("feilmelding");
+		
+	}
+
+	@Override
+	public void leggTilFilm(film nyFilm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean slettFilm(int filmnr) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public film[] soekTittel(String delstreng) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int antall(Sjanger sjanger) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int antall() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
+
+// film 
+
+package no.hvl.dat102;
+
+import java.util.Objects;
+
+public class film {
+@Override
+	public String toString() {
+		return "film [filmnr=" + filmnr + ", filmskaper=" + filmskaper + ", tittel=" + tittel + ", lansering="
+				+ lansering + ", sjanger=" + sjanger + ", filmselskap=" + filmselskap + "]";
+	}
+private int filmnr;
+private String filmskaper;
+private String tittel;
+private int lansering;
+private Sjanger sjanger;
+private String filmselskap;
+
+public film() {
+}
+public film(int filmnr, String filmskaper, String tittel, int lansering, Sjanger sjanger, String filmselskap) {
+	this.filmnr = filmnr;
+	this.filmskaper = filmskaper;
+	this.tittel = tittel;
+	this.lansering = lansering;
+	this.sjanger = sjanger;
+	this.filmselskap = filmselskap;
+}
+@Override
+public int hashCode() {
+	 Integer temp = filmnr;
+	 return temp.hashCode();
+
+}
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	film other = (film) obj;
+	return filmnr == other.filmnr;
+			
+}
+public int getFilmnr() {
+	return filmnr;
+}
+public void setFilmnr(int filmnr) {
+	this.filmnr = filmnr;
+}
+public String getFilmskaper() {
+	return filmskaper;
+}
+public void setFilmskaper(String filmskaper) {
+	this.filmskaper = filmskaper;
+}
+public String getTittel() {
+	return tittel;
+}
+public void setTittel(String tittel) {
+	this.tittel = tittel;
+}
+public int getLansering() {
+	return lansering;
+}
+public void setLansering(int lansering) {
+	this.lansering = lansering;
+}
+public Sjanger getSjanger() {
+	return sjanger;
+}
+public void setSjanger(Sjanger sjanger) {
+	this.sjanger = sjanger;
+}
+public String getFilmselskap() {
+	return filmselskap;
+}
+public void setFilmselskap(String filmselskap) {
+	this.filmselskap = filmselskap;
+}
+}
+//sjanger enum
+
+package no.hvl.dat102;
+
+public enum Sjanger {
+	ACTION, DRAMA, HISTORY, SCIFI;
+	
+	
+
+	public static Sjanger finnSjanger(String navn) {
+		Sjanger sjang = null;
+		for (Sjanger sj : Sjanger.values()) {
+			if (sj.toString().equals(navn.toUpperCase())) {
+				sjang = sj;
+				break;
+			}
+
+		}
+		return sjang;
+
+	}
+
+	
+}
+//filmarkivADT
+package no.hvl.dat102.adt;
+
+import no.hvl.dat102.film;
+import no.hvl.dat102.Sjanger;
+
+public interface FilmarkivADT {
+/**
+* Viser en film
+* @param nr nummer på film som skal vises. Om nummeret ikke finnes,
+* skrives en feilmelding.
+*/
+void visFilm(int nr);
+/**
+* Legger til en ny film.
+* @param nyFilm
+*/
+void leggTilFilm(film nyFilm);
+/**
+* Sletter en fil med gitt nr
+* @param filmnr nr på film som skal slettes
+* @return true dersom filmen ble slettet, false ellers
+*/
+boolean slettFilm(int filmnr);
+
+/**
+* Søker og henter Filmer med en gitt delstreng i tittelen.
+* @param delstreng som må være i tittel
+* @return tabell med filmer som har delstreng i tittel
+*/
+film[] soekTittel(String delstreng);
+/**
+* Finner antall filmer med gitt sjanger
+* @param sjanger
+* @return antall filmer av gitt sjanger.
+*/
+int antall(Sjanger sjanger);
+/**
+*
+* @return antall filmer i arkivet
+*/
+int antall();
+}
